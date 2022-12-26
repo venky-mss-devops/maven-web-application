@@ -1,16 +1,19 @@
 pipeline
 {
  agent any
- /*
-agent
-    {
-        label 'slavename'
-
-    }
-*/
+ 
 
 tools{
 maven "maven3.8.4"
+}
+
+triggers {
+  pollSCM '* * * * *'
+}
+
+options {
+  timestamps
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')
 }
 
 stages
