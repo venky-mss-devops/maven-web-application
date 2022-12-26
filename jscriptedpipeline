@@ -4,7 +4,11 @@ def mavenHome = tool name: "maven3.8.4"
 
 properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
 
- stage('any name u can give here eg: checkoutcode')
+echo "the bulid number is : ${env.BUILD_NUMBER }"
+echo "the job name is : ${env.JOB_NAME }"
+echo "the run dispaly is : ${env.RUN_DISPLAY_URL}"
+
+stage('any name u can give here eg: checkoutcode')
  {
   git branch: 'development', credentialsId: 'e55d8bac-b54f-4ef4-8508-e967f2b1f12f', url: 
   'https://github.com/venky-mss-devops/maven-web-application.git'
