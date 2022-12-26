@@ -1,0 +1,59 @@
+pipeline
+{
+ agent any
+ /*
+agent
+    {
+        label 'slavename'
+
+    }
+*/
+
+tools{
+maven "maven3.8.4"
+}
+
+stages
+ {
+
+   stage('checkoutcode')
+  {
+     steps{
+         git branch: 'development', credentialsId: 'e55d8bac-b54f-4ef4-8508-e967f2b1f12f', url: 
+  'https://github.com/venky-mss-devops/maven-web-application.git'
+         }
+  }
+
+    stage('build')
+  {
+     steps{
+           sh "mvn clean package"
+         }
+  }
+
+    stage('exutivesonarqubereport')
+  {
+     steps{
+           sh "mvn sonar:sonar"
+         }
+  }
+
+    stage('uploadartifact')
+  {
+     steps{
+           sh "mvn deploy"
+         }
+  }
+
+     stage('deployintotomact')
+  {
+     steps{
+           sshagent(['57ec29e2-dc22-4ce4-a244-ad960d7843c4']) {
+   sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.46.194:/opt/apache-tomcat-9.0.70/webapps"
+          }
+         }
+     }
+     
+ }
+
+}
