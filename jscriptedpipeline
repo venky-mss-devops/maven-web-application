@@ -24,7 +24,6 @@ def slackNotifications(String buildStatus = 'STARTED') {
 }
 
 node{
- try{
     
 def mavenHome = tool name: "maven3.8.4"
 
@@ -34,6 +33,7 @@ echo "the bulid number is : ${env.BUILD_NUMBER }"
 echo "the job name is : ${env.JOB_NAME }"
 echo "the run dispaly is : ${env.RUN_DISPLAY_URL}"
 
+try{
 stage('any name u can give here eg: checkoutcode')
  {
   git branch: 'development', credentialsId: 'e55d8bac-b54f-4ef4-8508-e967f2b1f12f', url: 
