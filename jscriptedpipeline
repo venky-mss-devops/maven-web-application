@@ -59,11 +59,11 @@ stage('any name u can give here eg: checkoutcode')
    sshagent(['57ec29e2-dc22-4ce4-a244-ad960d7843c4']) {
    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.46.194:/opt/apache-tomcat-9.0.70/webapps"
 }
- }catch (e){
-   currentBuild.result = "FAILED"
-   throw e
-   }finally{
-    slackNotifications(currentBuild.result)
-    }
+ } catch (e) {
+     currentBuild.result = "FAILED"
+     throw e
+   } finally {
+     slackNotifications(currentBuild.result)
+      }
  }
 }
